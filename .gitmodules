@@ -1,0 +1,3 @@
+[submodule "PCSPhotosCollectionViewExample/Libraries/AFNetworking"]
+	path = PCSPhotosCollectionViewExample/Libraries/AFNetworking
+	url = https://github.com/AFNetworking/AFNetworking.git

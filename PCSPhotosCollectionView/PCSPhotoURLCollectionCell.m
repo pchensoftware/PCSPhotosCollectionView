@@ -5,6 +5,7 @@
 //====================================================================================================
 
 #import "PCSPhotoURLCollectionCell.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface PCSPhotoURLCollectionCell()
 
