@@ -12,6 +12,7 @@
 @interface PCSPhotosCollectionView() <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) UIPageControl *pageControl;
 
 @end
 
@@ -36,16 +37,25 @@
       self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
       [self.collectionView registerClass:[PCSPhotoURLCollectionCell class] forCellWithReuseIdentifier:@"CellId"];
       [self addSubview:self.collectionView];
+      
+      self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 20, self.frame.size.width, 20)];
+      self.pageControl.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+      [self addSubview:self.pageControl];
    }
    return self;
 }
 
 - (void)setPhotoURLs:(NSArray *)photoURLs {
    _photoURLs = photoURLs;
+   self.pageControl.numberOfPages = [photoURLs count];
 }
 
-- (void)setBottomIndicatorViewHidden:(BOOL)bottomIndicatorViewHidden {
-   _bottomIndicatorViewHidden = bottomIndicatorViewHidden;
+- (BOOL)bottomPageControlHidden {
+   return self.pageControl.hidden;
+}
+
+- (void)setBottomPageControlHidden:(BOOL)bottomPageControlHidden {
+   self.pageControl.hidden = bottomPageControlHidden;
 }
 
 //====================================================================================================
@@ -64,6 +74,11 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
    return self.bounds.size;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+   int page = (scrollView.contentOffset.x + scrollView.frame.size.width / 2) / scrollView.frame.size.width;
+   self.pageControl.currentPage = page;
 }
 
 @end

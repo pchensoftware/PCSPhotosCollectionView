@@ -10,6 +10,6 @@
 @interface PCSPhotosCollectionView : UIView
 
 @property (nonatomic, strong) NSArray *photoURLs;
-@property (nonatomic, assign) BOOL bottomIndicatorViewHidden;
+@property (nonatomic, assign) BOOL bottomPageControlHidden;
 
 @end
