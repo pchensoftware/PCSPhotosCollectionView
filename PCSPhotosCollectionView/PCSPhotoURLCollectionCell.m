@@ -5,7 +5,7 @@
 //====================================================================================================
 
 #import "PCSPhotoURLCollectionCell.h"
-#import "UIImageView+AFNetworking.h"
+#import "UIImageView+WebCache.h" // From SDWebImage
 
 @interface PCSPhotoURLCollectionCell()
 
@@ -27,7 +27,7 @@
 
 - (void)setPhotoURL:(NSString *)photoURL {
    _photoURL = photoURL;
-   [self.imageView setImageWithURL:[NSURL URLWithString:_photoURL]];
+   [self.imageView setImageWithURL:[NSURL URLWithString:_photoURL] placeholderImage:nil options:SDWebImageRetryFailed|SDWebImageContinueInBackground];
 }
 
 @end

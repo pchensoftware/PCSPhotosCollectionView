@@ -6,6 +6,7 @@
 
 #import "PCSPhotosCollectionView.h"
 #import "PCSPhotoURLCollectionCell.h"
+#import "SDWebImageManager.h"
 
 #define kPhotoRightMargin  10
 
@@ -48,6 +49,11 @@
 - (void)setPhotoURLs:(NSArray *)photoURLs {
    _photoURLs = photoURLs;
    self.pageControl.numberOfPages = [photoURLs count];
+   
+   // Pre-download all images
+   for (NSString *photoURL in photoURLs)
+      [[SDWebImageManager sharedManager] downloadWithURL:[photoURL toUrl] options:SDWebImageRetryFailed|SDWebImageContinueInBackground progress:nil
+                                               completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {}];
 }
 
 - (BOOL)bottomPageControlHidden {
