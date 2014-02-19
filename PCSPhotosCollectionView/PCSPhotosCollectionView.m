@@ -52,7 +52,7 @@
    
    // Pre-download all images
    for (NSString *photoURL in photoURLs)
-      [[SDWebImageManager sharedManager] downloadWithURL:[photoURL toUrl] options:SDWebImageRetryFailed|SDWebImageContinueInBackground progress:nil
+      [[SDWebImageManager sharedManager] downloadWithURL:[NSURL URLWithString:photoURL] options:SDWebImageRetryFailed|SDWebImageContinueInBackground progress:nil
                                                completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {}];
 }
 
