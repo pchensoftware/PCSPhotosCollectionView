@@ -7,8 +7,9 @@
 #import "PCSPhotoURLCollectionCell.h"
 #import "UIImageView+WebCache.h" // From SDWebImage
 
-#define kMinZoomScale 1
-#define kMaxZoomScale 6
+#define kMinZoomScale               1
+#define kMaxZoomScale               6
+#define kZoomInByWhenDoubleTapped   2
 
 @interface PCSPhotoURLCollectionCell() <UIScrollViewDelegate>
 
@@ -59,7 +60,7 @@
    if (self.scrollView.zoomScale == kMaxZoomScale)
       [self.scrollView setZoomScale:kMinZoomScale animated:YES];
    else
-      [self.scrollView setZoomScale:MIN(kMaxZoomScale, self.scrollView.zoomScale * 2) animated:YES];
+      [self.scrollView setZoomScale:MIN(kMaxZoomScale, self.scrollView.zoomScale * kZoomInByWhenDoubleTapped) animated:YES];
 }
 
 @end
