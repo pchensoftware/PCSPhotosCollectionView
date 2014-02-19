@@ -41,6 +41,7 @@
       
       self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 20, self.frame.size.width, 20)];
       self.pageControl.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+      self.pageControl.userInteractionEnabled = NO;
       [self addSubview:self.pageControl];
    }
    return self;
