@@ -26,7 +26,8 @@
    self.title = @"Horizontal Photos";
    
    self.photosCollectionView = [[PCSPhotosCollectionView alloc] initWithFrame:self.view.bounds];
-   self.photosCollectionView.photoURLs = @[ @"http://hidoodle.com/images/hidoodle/hidoodle-icon-and-text.png",
+   self.photosCollectionView.photoURLs = @[ @"https://farm8.staticflickr.com/7318/9876046553_9c6494072a_o.jpg",
+                                            @"http://hidoodle.com/images/hidoodle/hidoodle-icon-and-text.png",
                                             @"http://upload.wikimedia.org/wikipedia/en/4/40/Octocat,_a_Mascot_of_Github.jpg",
                                             @"https://github-camo.global.ssl.fastly.net/20232135c459ea65f3b35e4c779725bc789b4c9c/687474703a2f2f6f63746f6465782e6769746875622e636f6d2f696d616765732f646f6a6f6361742e6a7067",
                                             @"http://octodex.github.com/images/octobiwan.jpg",

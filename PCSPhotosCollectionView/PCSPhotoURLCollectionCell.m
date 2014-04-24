@@ -10,11 +10,14 @@
 #define kMinZoomScale               1
 #define kMaxZoomScale               6
 #define kZoomInByWhenDoubleTapped   2
+#define kProgressViewLeftMargin     20
+#define kProgressViewHeight         20
 
 @interface PCSPhotoURLCollectionCell() <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIProgressView *progressView;
 
 @end
 
@@ -39,13 +42,29 @@
       self.imageView.contentMode = UIViewContentModeScaleAspectFit;
       self.imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
       [self.scrollView addSubview:self.imageView];
+      
+      self.progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+      self.progressView.frame = CGRectMake(kProgressViewLeftMargin, self.frame.size.height / 2 - kProgressViewHeight,
+                                           self.frame.size.width - 2 * kProgressViewLeftMargin, kProgressViewHeight);
+      self.progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+      self.progressView.progress = 0;
+      [self addSubview:self.progressView];
+      
    }
    return self;
 }
 
 - (void)setPhotoURL:(NSString *)photoURL {
    _photoURL = photoURL;
-   [self.imageView setImageWithURL:[NSURL URLWithString:_photoURL] placeholderImage:nil options:SDWebImageRetryFailed|SDWebImageContinueInBackground];
+   self.progressView.alpha = 1;
+   __weak PCSPhotoURLCollectionCell *weakself = self;
+   
+   [self.imageView setImageWithURL:[NSURL URLWithString:_photoURL] placeholderImage:nil options:SDWebImageRetryFailed|SDWebImageContinueInBackground|SDWebImageProgressiveDownload progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+      weakself.progressView.progress = (float) receivedSize / expectedSize;
+      
+   } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+      weakself.progressView.alpha = 0;
+   }];
 }
 
 //==================================================
