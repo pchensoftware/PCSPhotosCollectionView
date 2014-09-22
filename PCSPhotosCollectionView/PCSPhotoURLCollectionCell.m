@@ -59,10 +59,10 @@
    self.progressView.alpha = 1;
    __weak PCSPhotoURLCollectionCell *weakself = self;
    
-   [self.imageView setImageWithURL:[NSURL URLWithString:_photoURL] placeholderImage:nil options:SDWebImageRetryFailed|SDWebImageContinueInBackground|SDWebImageProgressiveDownload progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+   [self.imageView sd_setImageWithURL:[NSURL URLWithString:_photoURL] placeholderImage:nil options:SDWebImageRetryFailed|SDWebImageContinueInBackground|SDWebImageProgressiveDownload progress:^(NSInteger receivedSize, NSInteger expectedSize) {
       weakself.progressView.progress = (float) receivedSize / expectedSize;
       
-   } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+   } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
       weakself.progressView.alpha = 0;
    }];
 }
